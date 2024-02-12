@@ -1,10 +1,9 @@
 # CSE 151A Milestone 2: Data Exploration and Initial Preprocessing
 
-Please see Python notebook and pdf for details of our exploratory data analysis. 
-
-See https://github.com/cse151a-nba-project/data, which is the data downloaded from: https://www.kaggle.com/datasets/sumitrodatta/nba-aba-baa-stats
+The following README.md primarily provides data interpretation and supplementary / extra details about the data visualizations and calculations that are done in the notebook. Please also look into the notebook for more information. 
 
 Group Member List: 
+
 - Aaron Li all042\@ucsd.edu
 - Bryant Jin brjin\@ucsd.edu
 - Daniel Ji daji\@ucsd.edu
@@ -35,8 +34,6 @@ The Kaggle Dataset we are using is a **very comprehensive dataset** with many fe
 
 All-season related data files contain season identification (what season, what type of league), all team-related data files contain team identification (team name, abbreviation), and all player-related data files contain player identification and other information (name, age, position, etc.). Because players may have the same name, we can use the player\_id column to distinguish.\
 **Regarding team data files**, although we are predicting team performance based on the players on that team, this team data would be possibly useful in scaling the players performance accordingly depending on their team. For example, a player may not necessarily have a good plus/minus, but that might be because their team overall is not a good team and the overall negative team performance affects their own performance. Nevertheless, we still focused on taking a deeper dive into player stats more than team stats when exploring data. 
-
-**Regarding missing columns or data**, the data files were well filled out and comprehensive. Because there are so many players in the NBA and it would be quite hard to check for missing rows, we generally assumed that the \~35,000+ player data entries (which was filtered down to \~11,000 for this project) were accurate. With columns, we checked for NaN values and dropped rows that had them (there were very few instances, if not none, for our data files, so this wouldn’t skew our data in any way). 
 
 
 #### Advanced.csv
@@ -189,45 +186,55 @@ Here are the files we are potentially interested in for modeling: 
 
 7. Opponents Stats Per 100 Poss.csv
 
+The notebook in this Github repository explore these 7 data files.
+
 
 ### Visualize The Data
 
-Please see the notebook for visualizations. 
+Please see the notebook for visualizations.
 
-## Data Preprocessing
 
-### Imputation
+## Data Preprocessing and Calculation
 
-Regarding missing columns or data, the data files were well filled out and comprehensive. However, our imputations came from many different fields from our ~35,000+ player data entries being filled with NaN values. This is because in our combined database, much of the past seasons did not record certain attributes that we were intending to use for our machine learning. Thus, after filtering out a bit of the NaN's we found that we can discard seasons 1947-1973, as they did not record any useful data such as assist percentage, steal percentage, etc. Thus, shortening the dataset around then still kept us with around ~25,000+ player data entries, which would be sufficient for our machine learning algorithm. Some attributes were only being recorded starting very recently, which led us to removing these options completely. For example, Games Started was only recorded starting 1982, which we found to be not worth to keep as it would limit more of our dataset.
+### Missing Data
 
-#### Cumulative Player Career Data
-The head of the player data frame after was taken from our code and displays our data after pruning and merging many different player datasets. We removed many of the categorical variables except for their positions, as we believed they would just hinder our machine learning algorithm's ability to intepret the data on its own. This is our entire cumulative player career data, and we will be using some features from this data to train our model later. We will try many different variations in order to understand which features might give us the best results and which might not.
-![]("https://github.com/cse151a-nba-project/milestone-2/assets/35825663/ed779143-2294-4301-a62f-4d37317753ef")
+Regarding missing columns or data, **given that we are looking into NBA data after 1990**, the data files were well filled out and comprehensive (please see below for pre-1990 NBA data). Please read more below regarding the entire dataset (since the start of the NBA). Because there are so many players in the NBA and it would be quite hard to check for missing rows, we generally assumed that the \~11,000 filtered NBA player data observations (post-1990) were accurate. We assume likewise that NBA team data post-1990 was accurate and complete as well.  With columns, we checked for NaN values and dropped rows that had them (there were very few instances, if not none, for our data files, so this wouldn’t skew our data in any way). 
 
-#### Cumulative Past X Seasons Player Data
-The head of the past ~25 seasons player data frame is shown below as well. We separate these two different datasets for one which is after 1990 and one which is after 1974 as we want to see which dataset might train better for more recent players. Since the rules of the NBA change across the years, we want to capture more recent data and trends to categorize our most recent players, which is what our model is designed upon. Hence, this second dataset might look similar to the past dataset, but ![]("https://github.com/cse151a-nba-project/milestone-2/assets/35825663/a56a94d6-13a9-4a8a-9f2d-9f3e7a764f0a")
+For example, in the player Advanced.csv, we ran: 
 
-#### Top X Players From A Team In A Given Season
+```
+print(advanced_player_df_stats.isna().values.any())
+print(advanced_player_df_stats.isnull().values.any())
+```
+Where `advanced_player_df_stats` contained `'decade', 'experience', 'per', 'usg_percent', 'ws_48', 'bpm', 'vorp'`. The output for both lines was `false`, indicating we likely had no missing data. 
+
+Looking at the dataset as a whole, imputations came from many different fields from our \~35,000+ player data entries being filled with NaN values. This is because in our combined database, much of the past seasons did not record certain attributes that we were intending to use for our machine learning. Thus, after filtering out a bit of the NaN's we found that we can discard seasons 1947-1973, as they did not record any useful data such as assist percentage, steal percentage, etc. Thus, shortening the dataset around then still kept us with around \~25,000+ player data entries, which would be sufficient for our machine learning algorithm. Some attributes were only being recorded starting very recently, which led us to removing these options completely. For example, Games Started was only recorded starting 1982, which we found to be not worth keeping as it would limit more of our dataset for an unneeded value.
+
+
+### Filtering Data: Cumulative Past \~25 Season Player Data
+
+In addition to filtering to look only into post-1990 games and players that only played 40+ games in a specific season, we removed many of the categorical variables except for their positions, as we believed they would just hinder our machine learning algorithm's ability to interpret the data on its own. Additionally, we would look for outliers in our data (using the 1.5IQR from first and third quartile rule) to remove outliers. Sometimes, data would be distributed more widely, and so we would instead manually remove extreme (irregular) values. 
+
+
+### Data Calculation: Top X Players From A Team In A Given Season
 
 Since we intend to use player stat predictions to predict team success, we needed a way to compare different players across different teams. We hypothesized that since only a certain number of players will play in any given game, the most relevant players to analyze would be the top 8 players for each team. We determined that minutes played would be the best metric to determine the top 8 players for each team, since playing more minutes would naturally mean a greater impact on a team’s performance. 
 
-We used the Player per Game csv file. To find the top 8 players for each team, we first isolated the player data for a specific season. We chose the 2023 season, since it’s the most recently completed season, and top players change every year. Then we sorted the dataframe by minutes played. We extracted the list of teams and for each team, we extracted the top 8 players with the most minutes played from that team. 
+We used the Player per Game CSV file. To find the top 8 players for each team, we first isolated the player data for a specific season. We chose the 2023 season, since it’s the most recently completed season, and top players change every year. Then we sorted the dataframe by minutes played. We extracted the list of teams and for each team, we extracted the top 8 players with the most minutes played from that team. 
 
-Upon performing a Shapiro-Wilks test, many features were normally distributed for both the top player and the eighth-best player using an alpha-value of 0.05. Some of these features are: field-goal percentage, offensive rebounds, points scored, and steals.
-
-For those features, we performed a z score standardization and a min-max normalization for the rest.
+We then generated a pairplot showing the relationships between the stats of the top player and win-loss percentage for each team, and then we looked at the pairplot for the 8th best player, to see how depth plays a role. Please see the notebook for these visualizations.
 
 
-### Data Encoding<a id="data-encoding"></a>
+### Normalization, Standardization, and Data Transformation
 
-Below we show a sample of one-hot-encoding for our player database. Since we want to keep track of the players positions, we wanted to one-hot-encode this categorical variable which is shown below. One caveat is that some players can play multiple different positions, which is why we used multi-variate one-hot-encoding, which essentially puts true for multiple different positions depending on the amount of positions they play. This allows us to use one-hot-encoding still but also being able to put forth our categorical positions in a more meaningful way.
-
-The positions C, PF, PG, SF, SG stand for center, power forward, point guard, small forward, and shooting guard respectively.
-
-<img width="151" alt="Screenshot 2024-02-11 at 10 18 47 PM" src="https://github.com/cse151a-nba-project/milestone-2/assets/35825663/19a70978-6ef9-4080-bfd7-417756a320b2">
+Much of the dataset had normalized features - per 100 possessions, being a percentage, the NBA metric was within a certain range or scaled, etc. Along the way, we standardized / normalized / scaled data. Please see the notebook for these calculations. 
 
 
+### Data Encoding
 
-## References<a id="references"></a>
+We one-hot-encoded player position to better supply data to any models for this project. For the most part, we did not encode most variables, since the value we are trying to predict, win-loss percentage, is already a number. Many of the input statistics / features are also numerical, so at most we’ll just have to normalize or standardize. We may need to one-hot encode some numerical data into categories / brackets, but that also likewise does not require data encoding.
+
+
+## References
 
 <https://www.basketball-reference.com/>
