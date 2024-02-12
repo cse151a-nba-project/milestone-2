@@ -2,6 +2,8 @@
 
 Please see Python notebook and pdf for details of our exploratory data analysis. 
 
+See https://github.com/cse151a-nba-project/data, which is the data downloaded from: https://www.kaggle.com/datasets/sumitrodatta/nba-aba-baa-stats
+
 ## Group Member List
 - Aaron Li all042@ucsd.edu
 - Bryant Jin brjin@ucsd.edu
