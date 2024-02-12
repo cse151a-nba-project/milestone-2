@@ -202,11 +202,10 @@ Regarding missing columns or data, the data files were well filled out and compr
 
 #### Cumulative Player Career Data
 The head of the player data frame after was taken from our code and displays our data after pruning and merging many different player datasets. We removed many of the categorical variables except for their positions, as we believed they would just hinder our machine learning algorithm's ability to intepret the data on its own. This is our entire cumulative player career data, and we will be using some features from this data to train our model later. We will try many different variations in order to understand which features might give us the best results and which might not.
-<img width="1132" alt="Screenshot 2024-02-11 at 11 19 07 PM" src="https://github.com/cse151a-nba-project/milestone-2/assets/35825663/ed779143-2294-4301-a62f-4d37317753ef">
+![]("https://github.com/cse151a-nba-project/milestone-2/assets/35825663/ed779143-2294-4301-a62f-4d37317753ef")
 
 #### Cumulative Past X Seasons Player Data
-The head of the past ~25 seasons player data frame is shown below as well. We separate these two different datasets for one which is after 1990 and one which is after 1974 as we want to see which dataset might train better for more recent players. Since the rules of the NBA change across the years, we want to capture more recent data and trends to categorize our most recent players, which is what our model is designed upon. Hence, this second dataset might look similar to the past dataset, but notice that it has a much higher index value demonstrating that we continued to prune a large amount of past seasons' data.
-<img width="1126" alt="Screenshot 2024-02-11 at 11 19 16 PM" src="https://github.com/cse151a-nba-project/milestone-2/assets/35825663/a56a94d6-13a9-4a8a-9f2d-9f3e7a764f0a">
+The head of the past ~25 seasons player data frame is shown below as well. We separate these two different datasets for one which is after 1990 and one which is after 1974 as we want to see which dataset might train better for more recent players. Since the rules of the NBA change across the years, we want to capture more recent data and trends to categorize our most recent players, which is what our model is designed upon. Hence, this second dataset might look similar to the past dataset, but ![]("https://github.com/cse151a-nba-project/milestone-2/assets/35825663/a56a94d6-13a9-4a8a-9f2d-9f3e7a764f0a")
 
 #### Top X Players From A Team In A Given Season
 
