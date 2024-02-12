@@ -198,9 +198,17 @@ Please see the notebook for visualizations.
 
 ### Imputation
 
+Regarding missing columns or data, the data files were well filled out and comprehensive. However, our imputations came from many different fields from our ~35,000+ player data entries being filled with NaN values. This is because in our combined database, much of the past seasons did not record certain attributes that we were intending to use for our machine learning. Thus, after filtering out a bit of the NaN's we found that we can discard seasons 1947-1973, as they did not record any useful data such as assist percentage, steal percentage, etc. Thus, shortening the dataset around then still kept us with around ~25,000+ player data entries, which would be sufficient for our machine learning algorithm. Some attributes were only being recorded starting very recently, which led us to removing these options completely. For example, Games Started was only recorded starting 1982, which we found to be not worth to keep as it would limit more of our dataset.
+
 #### Cumulative Player Career Data
+The head of the player data frame after was taken from our code and displays our data after pruning and merging many different player datasets. We removed many of the categorical variables except for their positions, as we believed they would just hinder our machine learning algorithm's ability to intepret the data on its own. This is our entire cumulative player career data, and we will be using some features from this data to train our model later. We will try many different variations in order to understand which features might give us the best results and which might not.
+
+<img width="1119" alt="Screenshot 2024-02-11 at 11 11 11 PM" src="https://github.com/cse151a-nba-project/milestone-2/assets/35825663/93057cd1-b6de-4b36-91b3-1fd7824586f6">
 
 #### Cumulative Past X Seasons Player Data
+The head of the past ~25 seasons player data frame is shown below as well. We separate these two different datasets for one which is after 1990 and one which is after 1974 as we want to see which dataset might train better for more recent players. Since the rules of the NBA change across the years, we want to capture more recent data and trends to categorize our most recent players, which is what our model is designed upon. Hence, this second dataset might look similar to the past dataset, but notice that it has a much higher index value demonstrating that we continued to prune a large amount of past seasons' data.
+
+<img width="1122" alt="Screenshot 2024-02-11 at 11 16 33 PM" src="https://github.com/cse151a-nba-project/milestone-2/assets/35825663/65b23c52-3aaa-4b61-8552-809dd0814c02">
 
 #### Top X Players From A Team In A Given Season
 
