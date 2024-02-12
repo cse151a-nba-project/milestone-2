@@ -1,4 +1,7 @@
-# CSE 151A Milestone 2: Data Exploration and Initial Preprocessing
+# CSE 151A Milestone 2: Data Exploration with Initial Preprocessing and Normalization/Transformation
+
+Repo link: https://github.com/cse151a-nba-project/milestone-2/
+Data link: https://github.com/cse151a-nba-project/data/
 
 The following README.md primarily provides data interpretation and supplementary / extra details about the data visualizations and calculations that are done in the notebook. Please also look into the notebook for more information. 
 
