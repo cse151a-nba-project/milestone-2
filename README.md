@@ -213,24 +213,9 @@ Since we intend to use player stat predictions to predict team success, we neede
 
 We used the Player per Game csv file. To find the top 8 players for each team, we first isolated the player data for a specific season. We chose the 2023 season, since it’s the most recently completed season, and top players change every year. Then we sorted the dataframe by minutes played. We extracted the list of teams and for each team, we extracted the top 8 players with the most minutes played from that team. 
 
-We then generated a pairplot showing the relationships between the stats of the top player and win-loss percentage for each team, and then we looked at the pairplot for the 8th best player, to see how depth plays a role. 
-
-Top Player Pairplot![](https://lh7-us.googleusercontent.com/ekPUEMM_fY4v9hyqDIxRy-WO_E3TLAGBxcqBAu2YDsmzNuvkFmT2rRXon3aAjYbQQ_NeKZv_Edxb-GMf59QlEY9wXK4qg511njpbaQOns6Mjvty-rKBhjtMZDbo-opGrqGrYFiEEO4aaR4pUdodmGHE)
-
-
-##### 8th Player Pairplot![](https://lh7-us.googleusercontent.com/D0fvwD9ktLyuyHn4jHAsbdA-vczjSx_3VOpo9EMOyLXOtOo28TmxMwFMYn0ostwhel8Na-5Jf441BAi4NIrNLisAa1czHOUY1KBkhZMJkW35FghFkgctriwbt5Kybe9R7cpLfUWjnXojy8oCI5LdgWQ)<a id="8th-player-pairplot"></a>
-
-### Normalization, Standardization, and Data Transformation<a id="normalization-standardization-and-data-transformation"></a>
-
 Upon performing a Shapiro-Wilks test, many features were normally distributed for both the top player and the eighth-best player using an alpha-value of 0.05. Some of these features are: field-goal percentage, offensive rebounds, points scored, and steals.
 
 For those features, we performed a z score standardization and a min-max normalization for the rest.
-
-Here are the adjusted heatmaps for the top player and 8th best player, respectively.
-
-![](https://lh7-us.googleusercontent.com/Fa-P7WTzJ7TOMPn5lZP2i-Ch8q5E3taMi8nWQ6e2n0GRTSKFXSZXJjYtStCRZJKpxX9HYZB3KWeyskAalgt0wUVFb-soke3vDDkg0xkSMOfHyvJq5sR5AeXwkI2nehrZPzSzELW0qWO7MunR9M25ZtU)
-
-![](https://lh7-us.googleusercontent.com/oAB-B7v14Su3uCbC6OSWJT1Ecga_pNfAXXQoxW7dm5hCwVYI2RRB1wkGyiZM_BzJ8gg7H5bv5B0NQlzHMd92mQYszC2xQrtm7pJc1OXt18wYMm3b3FtKZJZOhN3G_RdzCGsp21ma4gUOvK1xAUh2EIo)
 
 
 ### Data Encoding<a id="data-encoding"></a>
