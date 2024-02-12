@@ -230,7 +230,10 @@ Here are the adjusted heatmaps for the top player and 8th best player, respectiv
 
 ### Data Encoding<a id="data-encoding"></a>
 
-Encoding isn’t really necessary here, since the value we are trying to predict, win-loss percentage, is already a number. Many of the input statistics / features are also numerical, so at most we’ll just have to normalize or standardize. We may need to one-hot encode some numerical data into categories / brackets, but that also likewise does not require data encoding. 
+Below we show a sample of one-hot-encoding for our player database. Since we want to keep track of the players positions, we wanted to one-hot-encode this categorical variable which is shown below. One caveat is that some players can play multiple different positions, which is why we used multi-variate one-hot-encoding, which essentially puts true for multiple different positions depending on the amount of positions they play. This allows us to use one-hot-encoding still but also being able to put forth our categorical positions in a more meaningful way.
+
+<img width="151" alt="Screenshot 2024-02-11 at 10 18 47 PM" src="https://github.com/cse151a-nba-project/milestone-2/assets/35825663/19a70978-6ef9-4080-bfd7-417756a320b2">
+
 
 
 ## References<a id="references"></a>
